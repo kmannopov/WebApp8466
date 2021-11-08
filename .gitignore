@@ -19,15 +19,12 @@ mono_crash.*
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
 x64/
 x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
 [Oo]bj/
 [Oo]ut/
 [Ll]og/
@@ -177,7 +174,6 @@ DocProject/Help/Html2
 DocProject/Help/html
 
 # Click-Once directory
-publish/
 
 # Publish Web Output
 *.[Pp]ublish.xml
