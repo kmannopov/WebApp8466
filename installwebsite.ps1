@@ -1,6 +1,6 @@
 Import-Module WebAdministration
 $iisAppPoolName = "DSCC_CW1_MVCWebApp_8466"
-$iisAppPoolDotNetVersion = "v5.0"
+$iisAppPoolDotNetVersion = "v4.0"
 $iisAppName = "MVCWebApp_8466"
 $directoryPath = "C:\www\8466"
 
