@@ -2,7 +2,7 @@ version: 0.0
 os: windows
 files:
   - source: DSCC_CW1_MVCWebApp_8466/bin/Release/net5.0/publish
-    destination: C:\www\DSCC_CW1_MVCWebApp_8466
+    destination: C:\www\8466
   - source: /deletewebsite.ps1
     destination: c:\temp
   - source: /installwebsite.ps1

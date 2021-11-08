@@ -1,6 +1,6 @@
 %SystemRoot%\sysnative\WindowsPowerShell\v1.0\powershell.exe -command "Set-ExecutionPolicy Unrestricted -Force"
-IF EXIST C:\www\DSCC_CW1_MVCWebApp_8466 rmdir C:\www\DSCC_CW1_MVCWebApp_8466
-mkdir C:\www\DSCC_CW1_MVCWebApp_8466
+IF EXIST C:\www\8466 rmdir C:\www\8466
+mkdir C:\www\8466
 
 cd c:\temp
 

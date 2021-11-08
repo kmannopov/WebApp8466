@@ -2,7 +2,7 @@ Import-Module WebAdministration
 $iisAppPoolName = "DSCC_CW1_MVCWebApp_8466"
 $iisAppPoolDotNetVersion = "v5.0"
 $iisAppName = "MVCWebApp_8466"
-$directoryPath = "C:\www\DSCC_CW1_MVCWebApp_8466"
+$directoryPath = "C:\www\8466"
 
 #stop the default web site so we can use port :80
 Stop-WebSite 'Default Web Site'
