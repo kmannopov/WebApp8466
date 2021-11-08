@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:DSCC_CW1_MVCWebApp_8466Context"
+    }
+  }
+}

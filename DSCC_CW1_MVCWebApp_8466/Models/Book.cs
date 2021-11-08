@@ -11,6 +11,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Models
         public string Name { get; set; }
         public string Author { get; set; }
         public int Isbn { get; set; }
+        public int BookGenreId { get; set; }
         public Genre BookGenre { get; set; }
     }
 }
