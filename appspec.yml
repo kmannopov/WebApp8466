@@ -1,0 +1,20 @@
+version: 0.0
+os: windows
+files:
+  - source: DSCC_CW1_MVCWebApp_8466/bin/Release/net5.0/publish
+    destination: C:\www\DSCC_CW1_MVCWebApp_8466
+  - source: /deletewebsite.ps1
+    destination: c:\temp
+  - source: /installwebsite.ps1
+    destination: c:\temp
+  - source: /deletewebsite.bat
+    destination: c:\temp
+  - source: /installwebsite.bat
+    destination: c:\temp
+hooks:
+  ApplicationStop:
+      - location: /deletewebsite.bat
+        timeout: 300
+  ApplicationStart:
+     - location: /installwebsite.bat
+       timeout: 300
