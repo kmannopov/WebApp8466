@@ -16,7 +16,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
     public class GenresController : Controller
     {
         private readonly DSCC_CW1_MVCWebApp_8466Context _context;
-        private string Baseurl = "https://localhost:5001/";
+        private string Baseurl = "http://ec2-3-120-150-207.eu-central-1.compute.amazonaws.com:5000/";
 
         public GenresController(DSCC_CW1_MVCWebApp_8466Context context)
         {
@@ -232,6 +232,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
+            ViewBag.Message = "This genre is currently in use. Please delete the associated books first.";
             return View();
         }
 

@@ -17,7 +17,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
     public class BooksController : Controller
     {
         private readonly DSCC_CW1_MVCWebApp_8466Context _context;
-        private string Baseurl = "https://localhost:5001/";
+        private string Baseurl = "http://ec2-3-120-150-207.eu-central-1.compute.amazonaws.com:5000/";
 
         public BooksController(DSCC_CW1_MVCWebApp_8466Context context)
         {
@@ -38,14 +38,10 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                 //Define request data format
                 client.DefaultRequestHeaders.Accept.Add(new
                MediaTypeWithQualityHeaderValue("application/json"));
-                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
                  HttpResponseMessage Res = await client.GetAsync("api/Book");
-                //Checking the response is successful or not which is sent using HttpClient
             if (Res.IsSuccessStatusCode)
                 {
-                    //Storing the response details recieved from web api
                     var PrResponse = Res.Content.ReadAsStringAsync().Result;
-                    //Deserializing the response recieved from web api and storing into the Product list
                      ProdInfo = JsonConvert.DeserializeObject<List<Book>>(PrResponse);
                 }
                 //returning the Product list to view
@@ -122,7 +118,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                 using (var client = new HttpClient())
                 {
                     var randomNumber = new Random();
-                    book.Id = randomNumber.Next(150);
+                    book.Id = randomNumber.Next(1000);
                     client.BaseAddress = new Uri(Baseurl);
                     var postTask = await client.PostAsJsonAsync<Book>("api/Book", book);
                     if (postTask.IsSuccessStatusCode)
@@ -141,6 +137,26 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
             {
                 return NotFound();
             }
+            List<Genre> ProdInfo = new List<Genre>();
+            using (var client = new HttpClient())
+            {
+                //Passing service base url
+                client.BaseAddress = new Uri(Baseurl);
+                client.DefaultRequestHeaders.Clear();
+                //Define request data format
+                client.DefaultRequestHeaders.Accept.Add(new
+               MediaTypeWithQualityHeaderValue("application/json"));
+                //Sending request to find web api REST service resource GetAllEmployees using HttpClient
+                HttpResponseMessage Res = await client.GetAsync("api/Genre");
+                //Checking the response is successful or not which is sent using HttpClient
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api
+                    var PrResponse = Res.Content.ReadAsStringAsync().Result;
+                    //Deserializing the response recieved from web api and storing into the Product list
+                    ProdInfo = JsonConvert.DeserializeObject<List<Genre>>(PrResponse);
+                }
+            }
             Book book = null;
             using (var client = new HttpClient())
             {
@@ -154,6 +170,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                 else
                     ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
             }
+            ViewData["BookGenreId"] = new SelectList(ProdInfo, "Id", "Name", book.BookGenreId);
 
             if (book == null)
             {
@@ -193,7 +210,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                             book = JsonConvert.DeserializeObject<Book>(PrResponse);
                         }
                         //HTTP POST
-                        var postTask = client.PutAsJsonAsync<Book>("api/Product/" + _book.Id, _book);
+                        var postTask = client.PutAsJsonAsync<Book>("api/Book/" + _book.Id, _book);
                         postTask.Wait();
                         var result = postTask.Result;
                         if (result.IsSuccessStatusCode)
@@ -228,14 +245,23 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                 return NotFound();
             }
 
-            var book = await _context.Book
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (book == null)
+            Book genre = null;
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                HttpResponseMessage Res = await client.GetAsync("api/Book/" + id);
+                if (Res.IsSuccessStatusCode)
+                {
+                    var BookResponse = Res.Content.ReadAsStringAsync().Result;
+                    genre = JsonConvert.DeserializeObject<Book>(BookResponse);
+                }
+            }
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return View(book);
+            return View(genre);
         }
 
         // POST: Books/Delete/5
@@ -243,10 +269,16 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var book = await _context.Book.FindAsync(id);
-            _context.Book.Remove(book);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+                HttpResponseMessage Res = await client.DeleteAsync("api/Book/" + id);
+                if (Res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            return View();
         }
 
         private bool BookExists(int id)

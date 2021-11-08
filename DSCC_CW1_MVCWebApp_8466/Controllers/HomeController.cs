@@ -15,13 +15,6 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private string Baseurl = "https://localhost:5001/";
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
 
         public ActionResult Index()
         {
