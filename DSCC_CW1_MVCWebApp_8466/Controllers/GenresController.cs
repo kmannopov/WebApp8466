@@ -98,7 +98,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
                 using (var client = new HttpClient())
                 {
                     var randomNumber = new Random();
-                    genre.Id = randomNumber.Next(150);
+                    genre.Id = randomNumber.Next(1000);
                     client.BaseAddress = new Uri(Baseurl);
                     var postTask = await client.PostAsJsonAsync<Genre>("api/Genre", genre);
                     if (postTask.IsSuccessStatusCode)
