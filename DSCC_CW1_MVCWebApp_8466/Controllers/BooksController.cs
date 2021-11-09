@@ -17,7 +17,7 @@ namespace DSCC_CW1_MVCWebApp_8466.Controllers
     public class BooksController : Controller
     {
         private readonly DSCC_CW1_MVCWebApp_8466Context _context;
-        private string Baseurl = "http://ec2-3-120-150-207.eu-central-1.compute.amazonaws.com:5000/";
+        private string Baseurl = "http://ip-172-31-10-80.eu-central-1.compute.internal:5000/";
 
         public BooksController(DSCC_CW1_MVCWebApp_8466Context context)
         {
